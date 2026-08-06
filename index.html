@@ -10,7 +10,12 @@
     --fg:#f5f5f2;
     --dim:#8a8a86;
     --line:rgba(245,245,242,0.14);
-    --accent:#f5f5f2;
+    /* accent pulled from King's Room stills (dominant palette extraction) */
+    --accent:#b3b96e;
+    --accent-dim:#6a6f37;
+    --accent-glow:rgba(179,185,110,0.39); /* glow strength reduced ~30% */
+    --fade-duration:1.8s;   /* slideshow crossfade length — tweak this */
+    --fade-interval:4500ms; /* how long each photo holds — set in JS below too */
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -34,8 +39,8 @@
   }
   .logo{font-size:15px;letter-spacing:0.08em;font-weight:600;}
   nav ul{display:flex;gap:32px;list-style:none;}
-  nav a{font-size:13px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.85;}
-  nav a:hover{opacity:1;}
+  nav a{font-size:13px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.85;transition:color .25s,opacity .25s;}
+  nav a:hover{opacity:1;color:var(--accent);}
   #menu-toggle{display:none;}
   .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:110;}
   .burger span{width:22px;height:1.5px;background:var(--fg);display:block;}
@@ -47,11 +52,15 @@
     text-align:center;
     padding:0 20px;
     position:relative;
+    background:
+      linear-gradient(rgba(10,10,10,0.85),rgba(10,10,10,0.85)),
+      url('assets/backgrounds/film-bg.jpg') center/cover no-repeat;
   }
   .hero h1{
     font-size:clamp(2.6rem,8vw,6.5rem);
     font-weight:600;
     letter-spacing:-0.02em;
+    text-shadow:0 0 28px var(--accent-glow),0 0 63px rgba(179,185,110,0.13);
   }
   .hero p{
     margin-top:18px;
@@ -60,12 +69,19 @@
     letter-spacing:0.04em;
     text-transform:uppercase;
   }
-  .scroll-cue{
-    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-    font-size:11px;color:var(--dim);letter-spacing:0.15em;text-transform:uppercase;
-    animation:bob 2.2s ease-in-out infinite;
+  /* ---------- SCROLL REVEAL (slight blur + delay) ---------- */
+  .reveal{
+    opacity:0;
+    filter:blur(6px);
+    transform:translateY(18px);
+    transition:opacity 1s ease, filter 1s ease, transform 1s ease;
+    transition-delay:0.15s; /* the "delay while scrolling" — raise/lower to taste */
   }
-  @keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+  .reveal.in-view{
+    opacity:1;
+    filter:blur(0);
+    transform:translateY(0);
+  }
 
   /* ---------- SECTION HEADERS ---------- */
   .section-intro{
@@ -109,7 +125,7 @@
     width:100%;height:100%;object-fit:cover;
     position:absolute;inset:0;
     opacity:0;
-    transition:opacity 1.8s ease-in-out;
+    transition:opacity var(--fade-duration) ease-in-out;
   }
   .film-media.slideshow .slideshow-img.active{opacity:1;}
   .film-media .play-badge{
@@ -120,7 +136,10 @@
     display:flex;flex-direction:column;gap:14px;
   }
   .film-index{color:var(--dim);font-size:13px;letter-spacing:0.1em;}
-  .film-title{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:600;letter-spacing:-0.01em;}
+  .film-title{
+    font-size:clamp(1.8rem,4.5vw,3rem);font-weight:600;letter-spacing:-0.01em;
+    text-shadow:0 2px 1px rgba(0,0,0,0.6),0 8px 24px rgba(0,0,0,0.5);
+  }
   .film-desc{color:var(--dim);font-size:15px;max-width:520px;}
   .film-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;}
   .btn{
@@ -132,7 +151,12 @@
     transition:background .2s,color .2s;
     min-height:44px;
   }
-  .btn:hover{background:var(--fg);color:var(--bg);}
+  .btn:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#0a0a0a;
+    box-shadow:0 0 17px var(--accent-glow);
+  }
   .btn-ghost{border-color:var(--line);color:var(--dim);}
   .btn-ghost:hover{border-color:var(--fg);background:transparent;color:var(--fg);}
   .rights-note{font-size:11px;color:var(--dim);letter-spacing:0.03em;margin-top:2px;}
@@ -168,7 +192,12 @@
 
   /* ---------- ABOUT ---------- */
   .about-panel{
-    padding:120px 24px;border-top:1px solid var(--line);text-align:center;
+    min-height:100svh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:160px 24px;border-top:1px solid var(--line);text-align:center;
+    background:
+      linear-gradient(rgba(10,10,10,0.85),rgba(10,10,10,0.85)),
+      url('assets/backgrounds/music-bg.jpg') center/cover no-repeat;
   }
   .about-panel h2{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:600;margin-bottom:20px;}
   .about-panel p{color:var(--dim);max-width:560px;margin:0 auto 30px;font-size:15px;}
@@ -247,12 +276,11 @@
 <section class="hero" id="top">
   <h1>Luka Beatović</h1>
   <p>Film &nbsp;&middot;&nbsp; Music</p>
-  <div class="scroll-cue">Scroll</div>
 </section>
 
 <!-- ============ FILM ============ -->
 <div id="film"></div>
-<div class="section-intro">
+<div class="section-intro reveal">
   <h2>Film</h2>
   <p>Three works. Watched one at a time.</p>
 </div>
@@ -266,7 +294,7 @@
       <img src="assets/kings-room/still-03.jpg" alt="King's Room — still" class="slideshow-img">
       <img src="assets/kings-room/still-04.jpg" alt="King's Room — still" class="slideshow-img">
     </div>
-    <div class="film-meta">
+    <div class="film-meta reveal">
       <span class="film-index">01 / 03</span>
       <h3 class="film-title">King's Room</h3>
       <p class="film-desc">Short description of the film goes here — one or two sentences, no more.</p>
@@ -285,7 +313,7 @@
     <div class="film-media">
       <iframe src="https://player.vimeo.com/video/1215544560?title=0&amp;byline=0&amp;portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div class="film-meta">
+    <div class="film-meta reveal">
       <span class="film-index">02 / 03</span>
       <h3 class="film-title">Old World Sparrows</h3>
       <p class="film-desc">Short description of the film goes here — one or two sentences, no more.</p>
@@ -302,7 +330,7 @@
     <div class="film-media">
       <iframe src="https://player.vimeo.com/video/1215542187?title=0&amp;byline=0&amp;portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div class="film-meta">
+    <div class="film-meta reveal">
       <span class="film-index">03 / 03</span>
       <h3 class="film-title">Aristotle University</h3>
       <p class="film-desc">Short description of the film goes here — one or two sentences, no more.</p>
@@ -316,11 +344,11 @@
 <!-- ============ MUSIC ============ -->
 <section class="music-panel" id="music">
   <div class="music-inner">
-    <div class="section-intro" style="padding:0 0 0 0;text-align:left;">
+    <div class="section-intro reveal" style="padding:0 0 0 0;text-align:left;">
       <h2>Music</h2>
       <p style="margin-left:0;">Selected work. The full archive lives one click away.</p>
     </div>
-    <div class="music-grid">
+    <div class="music-grid reveal">
       <div class="music-card">
         <h3>Releases</h3>
         <p>Latest track or EP, featured. One release at a time — swap it as new work comes out.</p>
@@ -345,7 +373,7 @@
 </section>
 
 <!-- ============ ABOUT ============ -->
-<section class="about-panel" id="about">
+<section class="about-panel reveal" id="about">
   <h2>About</h2>
   <p>One paragraph. Who you are, what you make, nothing more.</p>
   <a class="btn" href="mailto:contact@lukabea.com">Get in Touch</a>
@@ -412,7 +440,22 @@
       document.body.style.overflow='';
     }
   });
+  // scroll reveal — slight blur-in with a short delay as sections enter view
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){
+    revealObserver.observe(el);
+  });
+
   // slow crossfade slideshow for film-media galleries
+  // hold time reads from the --fade-interval CSS variable, so it's set in one place
+  var fadeIntervalMs = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--fade-interval')) || 4500;
   document.querySelectorAll('.film-media.slideshow').forEach(function(container){
     var imgs = container.querySelectorAll('.slideshow-img');
     if(imgs.length < 2) return;
@@ -421,7 +464,7 @@
       imgs[current].classList.remove('active');
       current = (current + 1) % imgs.length;
       imgs[current].classList.add('active');
-    }, 4500);
+    }, fadeIntervalMs);
   });
 
   // close mobile nav after tapping a link
