@@ -52,9 +52,28 @@
     text-align:center;
     padding:0 20px;
     position:relative;
-    background:
-      linear-gradient(rgba(10,10,10,0.85),rgba(10,10,10,0.85)),
-      url('assets/backgrounds/film-bg.jpg') center/contain no-repeat;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    z-index:0;
+    animation:kenBurns 32s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes kenBurns{
+    0%{transform:scale(1) translate(0,0);}
+    100%{transform:scale(1.12) translate(-1.5%,-1.5%);}
+  }
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:rgba(10,10,10,0.72);
+    z-index:1;
+  }
+  .hero h1,.hero p,.hero .scroll-cue{
+    position:relative;
+    z-index:2;
   }
   .hero h1{
     font-size:clamp(2.6rem,8vw,6.5rem);
@@ -269,6 +288,9 @@
     header{mix-blend-mode:normal;}
     .music-grid{grid-template-columns:1fr;}
   }
+  @media (prefers-reduced-motion:reduce){
+    .hero-bg{animation:none;}
+  }
 </style>
 </head>
 <body>
@@ -288,6 +310,8 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
+  <img class="hero-bg" src="assets/backgrounds/film-bg.jpg" alt="">
+  <div class="hero-overlay"></div>
   <h1>Luka Beatović</h1>
   <p><a href="#film">Film</a> &nbsp;&middot;&nbsp; <a href="#music">Music</a></p>
   <div class="scroll-cue" aria-hidden="true">↓</div>
