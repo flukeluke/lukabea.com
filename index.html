@@ -69,6 +69,21 @@
     letter-spacing:0.04em;
     text-transform:uppercase;
   }
+  .hero p a{
+    cursor:pointer;
+    transition:color .25s;
+  }
+  .hero p a:hover{color:var(--accent);}
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    color:var(--dim);font-size:20px;line-height:1;
+    animation:pulseArrow 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseArrow{
+    0%,100%{opacity:0.25;transform:translate(-50%,0);}
+    50%{opacity:0.85;transform:translate(-50%,6px);}
+  }
+
   /* ---------- SCROLL REVEAL (slight blur + delay) ---------- */
   .reveal{
     opacity:0;
@@ -184,11 +199,10 @@
   .music-card p{color:var(--dim);font-size:14px;flex-grow:1;}
   .music-card a{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--fg);padding-bottom:2px;align-self:flex-start;}
   .catalog-line{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-content:center;
     margin-top:40px;padding-top:30px;border-top:1px solid var(--line);
     flex-wrap:wrap;gap:16px;
   }
-  .catalog-line p{color:var(--dim);font-size:14px;}
 
   /* ---------- ABOUT ---------- */
   .about-panel{
@@ -275,14 +289,14 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <h1>Luka Beatović</h1>
-  <p>Film &nbsp;&middot;&nbsp; Music</p>
+  <p><a href="#film">Film</a> &nbsp;&middot;&nbsp; <a href="#music">Music</a></p>
+  <div class="scroll-cue" aria-hidden="true">↓</div>
 </section>
 
 <!-- ============ FILM ============ -->
 <div id="film"></div>
 <div class="section-intro reveal">
   <h2>Film</h2>
-  <p>Three works. Watched one at a time.</p>
 </div>
 
 <!-- 1. King's Room — rights-restricted: external link only, no embed -->
@@ -346,7 +360,6 @@
   <div class="music-inner">
     <div class="section-intro reveal" style="padding:0 0 0 0;text-align:left;">
       <h2>Music</h2>
-      <p style="margin-left:0;">Selected work. The full archive lives one click away.</p>
     </div>
     <div class="music-grid reveal">
       <div class="music-card">
@@ -366,7 +379,6 @@
       </div>
     </div>
     <div class="catalog-line">
-      <p>Everything else — every release, every session — lives on one platform.</p>
       <a class="btn" href="#" target="_blank" rel="noopener">Full Catalog ↗</a>
     </div>
   </div>
@@ -465,6 +477,35 @@
       current = (current + 1) % imgs.length;
       imgs[current].classList.add('active');
     }, fadeIntervalMs);
+  });
+
+  // quick scroll to section on nav click — fixed short duration so it feels snappy
+  // regardless of how far down the page the target is, with a slight offset for the fixed header
+  function quickScrollTo(target){
+    var headerOffset = 70;
+    var startY = window.pageYOffset;
+    var targetY = target.getBoundingClientRect().top + startY - headerOffset;
+    var distance = targetY - startY;
+    var duration = 550;
+    var startTime = null;
+    function easeInOutQuad(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; }
+    function step(timestamp){
+      if(startTime === null) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + distance * easeInOutQuad(progress));
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      quickScrollTo(target);
+    });
   });
 
   // close mobile nav after tapping a link
