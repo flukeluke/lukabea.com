@@ -60,12 +60,6 @@
     object-fit:cover;
     object-position:center 10%;
     z-index:0;
-    animation:kenBurns 44s ease-in-out infinite alternate;
-    will-change:transform,object-position;
-  }
-  @keyframes kenBurns{
-    0%{object-position:center 10%;transform:scale(1.05);}
-    100%{object-position:center 30%;transform:scale(1.1);}
   }
   .hero-overlay{
     position:absolute;inset:0;
@@ -288,9 +282,6 @@
     .burger{display:flex;}
     header{mix-blend-mode:normal;}
     .music-grid{grid-template-columns:1fr;}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .hero-bg{animation:none;}
   }
 </style>
 </head>
