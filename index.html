@@ -150,13 +150,13 @@
     overflow:hidden;
   }
   .film-media iframe{width:100%;height:100%;border:0;position:absolute;inset:0;}
-  .film-media.slideshow .slideshow-img{
+  .slideshow .slideshow-img{
     width:100%;height:100%;object-fit:cover;
     position:absolute;inset:0;
     opacity:0;
     transition:opacity var(--fade-duration) ease-in-out;
   }
-  .film-media.slideshow .slideshow-img.active{opacity:1;}
+  .slideshow .slideshow-img.active{opacity:1;}
   .film-media .play-badge{
     width:52px;height:52px;border:1px solid var(--fg);border-radius:50%;
     display:flex;align-items:center;justify-content:center;margin-bottom:10px;
@@ -202,12 +202,21 @@
     background:var(--line);
     margin-top:50px;
     border:1px solid var(--line);
+    align-items:start;
   }
   .music-card{
     background:var(--bg);
     padding:36px 26px;
     display:flex;flex-direction:column;gap:12px;
     min-height:260px;
+  }
+  .release-tease{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    cursor:pointer;
+    border:1px solid var(--line);
   }
   .music-card h3{font-size:1.3rem;font-weight:600;}
   .music-card p{color:var(--dim);font-size:14px;flex-grow:1;}
@@ -392,6 +401,14 @@
     <div class="music-grid reveal">
       <div class="music-card">
         <h3>Releases</h3>
+        <div class="release-tease slideshow" onclick="openModal('modal-releases')">
+          <img src="https://f4.bcbits.com/img/a1307674117_5.jpg" alt="Early Summer" class="slideshow-img active">
+          <img src="https://f4.bcbits.com/img/a3730685541_5.jpg" alt="few things in between" class="slideshow-img">
+          <img src="https://f4.bcbits.com/img/a3028179787_5.jpg" alt="Can I Breathe In This" class="slideshow-img">
+          <img src="https://f4.bcbits.com/img/a3536978312_5.jpg" alt="o" class="slideshow-img">
+          <img src="https://f4.bcbits.com/img/a3948871583_5.jpg" alt="In Place" class="slideshow-img">
+          <img src="https://f4.bcbits.com/img/a2894197470_5.jpg" alt="BLATO" class="slideshow-img">
+        </div>
         <p>Six albums, all in one place — plays right here.</p>
         <a href="javascript:void(0)" onclick="openModal('modal-releases')">Listen ↗</a>
       </div>
@@ -427,12 +444,12 @@
     <span class="tag">Releases</span>
     <h3>Six albums</h3>
     <div class="bandcamp-grid">
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1785398288/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/early-summer">Early Summer by Luka Beatović</a></iframe>
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2207199311/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/few-things-in-between">few things in between by Luka Beatović</a></iframe>
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=671496991/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/can-i-breathe-in-this">Can I Breathe In This by Luka Beatović</a></iframe>
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2656098472/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/o">o by Luka Beatović</a></iframe>
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2940335561/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/in-place-2">In Place by Luka Beatović</a></iframe>
-      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1759023045/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/blato">BLATO by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=1785398288/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/early-summer">Early Summer by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=2207199311/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/few-things-in-between">few things in between by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=671496991/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/can-i-breathe-in-this">Can I Breathe In This by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=2656098472/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/o">o by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=2940335561/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/in-place-2">In Place by Luka Beatović</a></iframe>
+      <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=1759023045/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/blato">BLATO by Luka Beatović</a></iframe>
     </div>
   </div>
 </div>
@@ -474,8 +491,15 @@
 
 <script>
   function openModal(id){
-    document.getElementById(id).classList.add('open');
+    var modal = document.getElementById(id);
+    modal.classList.add('open');
     document.body.style.overflow='hidden';
+    // load bandcamp embeds only once they're actually visible —
+    // loading them while hidden was why artwork stayed blank until play
+    modal.querySelectorAll('iframe[data-src]').forEach(function(f){
+      f.src = f.getAttribute('data-src');
+      f.removeAttribute('data-src');
+    });
   }
   function closeModal(id){
     document.getElementById(id).classList.remove('open');
@@ -510,7 +534,7 @@
   // slow crossfade slideshow for film-media galleries
   // hold time reads from the --fade-interval CSS variable, so it's set in one place
   var fadeIntervalMs = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--fade-interval')) || 4500;
-  document.querySelectorAll('.film-media.slideshow').forEach(function(container){
+  document.querySelectorAll('.slideshow').forEach(function(container){
     var imgs = container.querySelectorAll('.slideshow-img');
     if(imgs.length < 2) return;
     var current = 0;
