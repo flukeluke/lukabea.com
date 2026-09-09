@@ -292,6 +292,14 @@
   .soundcloud-list iframe{width:100%;height:300px;border:0;display:block;}
   .soundcloud-credit{font-size:11px;color:var(--dim);margin-top:6px;}
   .soundcloud-credit a{color:var(--dim);border-bottom:1px solid var(--line);}
+  .video-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;margin-top:16px;
+  }
+  .video-embed{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
+  .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .video-caption{font-size:12px;color:var(--dim);margin-top:8px;}
+  .channel-link{margin-top:24px;display:block;}
 
   /* ---------- MOBILE ---------- */
   @media (max-width:720px){
@@ -415,18 +423,29 @@
           <img src="https://f4.bcbits.com/img/a3948871583_5.jpg" alt="In Place" class="slideshow-img">
           <img src="https://f4.bcbits.com/img/a2894197470_5.jpg" alt="BLATO" class="slideshow-img">
         </div>
-        <p>Six albums, all in one place — plays right here.</p>
         <a href="javascript:void(0)" onclick="openModal('modal-releases')">Listen ↗</a>
       </div>
       <div class="music-card">
         <h3>Shows/Mixes</h3>
-        <p>Four live sets and radio mixes, streamed right here.</p>
+        <div class="release-tease slideshow" onclick="openModal('modal-shows')">
+          <img src="https://i1.sndcdn.com/artworks-aGhqxbDMRWE0b6DR-4eafSw-t500x500.jpg" alt="Live at GOMILA" class="slideshow-img active">
+          <img src="https://i1.sndcdn.com/artworks-VsXS8Q3Eu3dEvS9r-uCIyMw-t500x500.png" alt="Realist Alive Radio 013" class="slideshow-img">
+          <img src="https://i1.sndcdn.com/artworks-PfzF2BX2C8f7tE0j-FIbA0A-t500x500.jpg" alt="ML726" class="slideshow-img">
+          <img src="https://i1.sndcdn.com/artworks-oGylveRQyZ8vSjhu-vE4OPg-t500x500.jpg" alt="zerrüttet on HKCR" class="slideshow-img">
+        </div>
         <a href="javascript:void(0)" onclick="openModal('modal-shows')">Listen ↗</a>
       </div>
       <div class="music-card">
         <h3>Sound Design</h3>
-        <p>Featured film/media sound work — one strong example, not the full list.</p>
-        <a href="https://vimeo.com/user186725707" target="_blank" rel="noopener">Watch ↗</a>
+        <div class="release-tease slideshow" onclick="openModal('modal-sound-design')">
+          <img src="https://img.youtube.com/vi/Vdt0ny-LrL8/hqdefault.jpg" alt="Sound design work" class="slideshow-img active">
+          <img src="https://img.youtube.com/vi/pqCAZgE9ABA/hqdefault.jpg" alt="Sound design work" class="slideshow-img">
+          <img src="https://img.youtube.com/vi/u98-cqBQmqs/hqdefault.jpg" alt="Sound design work" class="slideshow-img">
+          <img src="https://img.youtube.com/vi/q26zXHamU9w/hqdefault.jpg" alt="Sound design work" class="slideshow-img">
+          <img src="https://i.vimeocdn.com/video/2018206037-1c7ec58831f3ae34e87907b1e646824f88db8ddf735b951f10a0eeba8a4468b2-d?f=webp&region=us" alt="Skyborne Audio Demo" class="slideshow-img">
+          <img src="https://i.vimeocdn.com/video/2018160394-2e501e4bc660ea1537f3c501e2c255124193b7b92874ec1c965e4afde748b646-d?f=webp&region=us" alt="BBC Earth III — Butterfly Sequence" class="slideshow-img">
+        </div>
+        <a href="javascript:void(0)" onclick="openModal('modal-sound-design')">Watch ↗</a>
       </div>
     </div>
   </div>
@@ -484,6 +503,38 @@
         <div class="soundcloud-credit"><a href="https://soundcloud.com/hkcrlive" target="_blank" rel="noopener">HKCR</a> · <a href="https://soundcloud.com/hkcrlive/zeruttet-w-luka-beatovic-20042022" target="_blank" rel="noopener">zerrüttet w/ Luka Beatović - 20/04/2022</a></div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ SOUND DESIGN MODAL ============ -->
+<div class="modal-overlay" id="modal-sound-design">
+  <div class="modal-box modal-box-wide">
+    <div class="modal-close" onclick="closeModal('modal-sound-design')">✕</div>
+    <span class="tag">Sound Design</span>
+    <h3>Selected work</h3>
+    <div class="video-grid">
+      <div>
+        <div class="video-embed"><iframe data-src="https://www.youtube.com/embed/Vdt0ny-LrL8" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      </div>
+      <div>
+        <div class="video-embed"><iframe data-src="https://www.youtube.com/embed/pqCAZgE9ABA" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      </div>
+      <div>
+        <div class="video-embed"><iframe data-src="https://www.youtube.com/embed/u98-cqBQmqs" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      </div>
+      <div>
+        <div class="video-embed"><iframe data-src="https://www.youtube.com/embed/q26zXHamU9w" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      </div>
+      <div>
+        <div class="video-embed"><iframe data-src="https://player.vimeo.com/video/1086434249?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Skyborne Audio Demo"></iframe></div>
+        <div class="video-caption">Skyborne Audio Demo</div>
+      </div>
+      <div>
+        <div class="video-embed"><iframe data-src="https://player.vimeo.com/video/1086396094?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="BBC Earth III - Butterfly Sequence Audio Redesign"></iframe></div>
+        <div class="video-caption">BBC Earth III — Butterfly Sequence Audio Redesign</div>
+      </div>
+    </div>
+    <a class="btn btn-ghost channel-link" href="https://www.youtube.com/@blobmusica" target="_blank" rel="noopener">More on YouTube ↗</a>
   </div>
 </div>
 
