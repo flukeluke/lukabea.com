@@ -286,6 +286,12 @@
     display:block;
     margin:0 auto;
   }
+  .soundcloud-list{
+    display:flex;flex-direction:column;gap:26px;margin-top:16px;
+  }
+  .soundcloud-list iframe{width:100%;height:300px;border:0;display:block;}
+  .soundcloud-credit{font-size:11px;color:var(--dim);margin-top:6px;}
+  .soundcloud-credit a{color:var(--dim);border-bottom:1px solid var(--line);}
 
   /* ---------- MOBILE ---------- */
   @media (max-width:720px){
@@ -413,14 +419,14 @@
         <a href="javascript:void(0)" onclick="openModal('modal-releases')">Listen ↗</a>
       </div>
       <div class="music-card">
-        <h3>Shows</h3>
-        <p>Next or most recent performance. Date, city, venue.</p>
-        <a href="#" target="_blank" rel="noopener">Details ↗</a>
+        <h3>Shows/Mixes</h3>
+        <p>Four live sets and radio mixes, streamed right here.</p>
+        <a href="javascript:void(0)" onclick="openModal('modal-shows')">Listen ↗</a>
       </div>
       <div class="music-card">
         <h3>Sound Design</h3>
         <p>Featured film/media sound work — one strong example, not the full list.</p>
-        <a href="#" target="_blank" rel="noopener">Listen ↗</a>
+        <a href="https://vimeo.com/user186725707" target="_blank" rel="noopener">Watch ↗</a>
       </div>
     </div>
   </div>
@@ -450,6 +456,33 @@
       <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=2656098472/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/o">o by Luka Beatović</a></iframe>
       <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=2940335561/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/in-place-2">In Place by Luka Beatović</a></iframe>
       <iframe style="border: 0; width: 350px; height: 470px;" data-src="https://bandcamp.com/EmbeddedPlayer/album=1759023045/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://lukabea.bandcamp.com/album/blato">BLATO by Luka Beatović</a></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SHOWS/MIXES MODAL ============ -->
+<div class="modal-overlay" id="modal-shows">
+  <div class="modal-box modal-box-wide">
+    <div class="modal-close" onclick="closeModal('modal-shows')">✕</div>
+    <span class="tag">Shows / Mixes</span>
+    <h3>Live sets &amp; radio mixes</h3>
+    <div class="soundcloud-list">
+      <div>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2273077664&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div class="soundcloud-credit"><a href="https://soundcloud.com/lukabeatovic" target="_blank" rel="noopener">Luka Beatović</a> · <a href="https://soundcloud.com/lukabeatovic/live-at-gomila" target="_blank" rel="noopener">Live at GOMILA</a></div>
+      </div>
+      <div>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2122726059&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div class="soundcloud-credit"><a href="https://soundcloud.com/realistaliveradio" target="_blank" rel="noopener">Realist Alive Radio</a> · <a href="https://soundcloud.com/realistaliveradio/realist-alive-radio-013-luka-beatovic" target="_blank" rel="noopener">Realist Alive Radio 013: Luka Beatović</a></div>
+      </div>
+      <div>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1808320059&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div class="soundcloud-credit"><a href="https://soundcloud.com/mitaminelab" target="_blank" rel="noopener">Mitamine Lab</a> · <a href="https://soundcloud.com/mitaminelab/ml726-luka-beatovic" target="_blank" rel="noopener">ML726: Luka Beatović</a></div>
+      </div>
+      <div>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1253973997&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div class="soundcloud-credit"><a href="https://soundcloud.com/hkcrlive" target="_blank" rel="noopener">HKCR</a> · <a href="https://soundcloud.com/hkcrlive/zeruttet-w-luka-beatovic-20042022" target="_blank" rel="noopener">zerrüttet w/ Luka Beatović - 20/04/2022</a></div>
+      </div>
     </div>
   </div>
 </div>
