@@ -179,20 +179,26 @@
     text-shadow:0 2px 1px rgba(0,0,0,0.6),0 8px 24px rgba(0,0,0,0.5);
   }
   .film-desc{color:var(--dim);font-size:15px;max-width:520px;}
-  .film-poem-details{max-width:520px;}
+  .film-poem-wrap{max-width:520px;}
+  .film-poem-preview{
+    white-space:pre-line;color:var(--dim);font-size:15px;line-height:1.7;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;text-overflow:ellipsis;
+  }
   .film-poem-details summary{
     cursor:pointer;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;
     color:var(--fg);opacity:0.85;transition:color .25s,opacity .25s;
-    list-style:none;
+    list-style:none;margin-top:8px;
   }
   .film-poem-details summary::-webkit-details-marker{display:none;}
   .film-poem-details summary:hover{opacity:1;color:var(--accent);}
-  .film-poem-details summary::after{content:" +";}
-  .film-poem-details[open] summary::after{content:" –";}
-  .film-poem{
+  .film-poem-details summary::after{content:"↓";}
+  .film-poem-details[open] summary::after{content:"↑";}
+  .film-poem-full{
     white-space:pre-line;color:var(--dim);font-size:15px;line-height:1.7;
     margin-top:12px;
   }
+  .film-poem-wrap:has(.film-poem-details[open]) .film-poem-preview{display:none;}
   .film-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -300,24 +306,15 @@
   .modal-box-wide{max-width:780px;}
   .bandcamp-grid{
     display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    gap:20px;
+    flex-direction:column;
+    gap:26px;
     margin-top:16px;
-    padding-bottom:12px;
   }
   .bandcamp-grid iframe{
-    flex:0 0 auto;
-    scroll-snap-align:center;
-    width:300px;
-    max-width:80vw;
+    width:100%;
     height:470px;
     border:0;
     display:block;
-  }
-  @media (max-width:720px){
-    .bandcamp-grid{scroll-snap-type:x proximity;}
   }
   .soundcloud-list{
     display:flex;flex-direction:column;gap:26px;margin-top:16px;
@@ -391,9 +388,8 @@
     <div class="film-meta reveal">
       <span class="film-index">01 / 03</span>
       <h3 class="film-title">King's Room</h3>
-      <details class="film-poem-details">
-        <summary>Poem</summary>
-        <p class="film-poem">During summer as we sat in front of our building.
+      <div class="film-poem-wrap">
+        <p class="film-poem-preview">During summer as we sat in front of our building.
 When women would line themselves on this mixture of a block and humane architecture.
 When your mother would delay her „IVANE!“ shout from your window.
 When everything had a fragrance and everything had its sound.
@@ -405,11 +401,25 @@ A word now and there.
 Listening.
 All but silhouettes.
 Smiling.</p>
-      </details>
+        <details class="film-poem-details">
+          <summary></summary>
+          <p class="film-poem-full">During summer as we sat in front of our building.
+When women would line themselves on this mixture of a block and humane architecture.
+When your mother would delay her „IVANE!“ shout from your window.
+When everything had a fragrance and everything had its sound.
+When we were all there. Between concrete and trees.
+Mirabelle, birch, chestnut and willow.
+Resin, linden, a creek and me.
+We whispered.
+A word now and there.
+Listening.
+All but silhouettes.
+Smiling.</p>
+        </details>
+      </div>
       <div class="film-actions">
         <a class="btn" href="https://www.ateliersvaran.com/fr/cinematheque/la-chambre-du-roi__27983" target="_blank" rel="noopener">Watch on Ateliers Varan ↗</a>
       </div>
-      <span class="rights-note">Link only — not embedded, per rights.</span>
     </div>
   </div>
 </section>
@@ -423,9 +433,8 @@ Smiling.</p>
     <div class="film-meta reveal">
       <span class="film-index">02 / 03</span>
       <h3 class="film-title">Old World Sparrows</h3>
-      <details class="film-poem-details">
-        <summary>Poem</summary>
-        <p class="film-poem">How much I am changing
+      <div class="film-poem-wrap">
+        <p class="film-poem-preview">How much I am changing
 Need I be strict with you
 Or is it someone else
 I speak with
@@ -441,7 +450,26 @@ Into your wings
 Because it is oh so simple
 I need you and you're the one
 I love speak with</p>
-      </details>
+        <details class="film-poem-details">
+          <summary></summary>
+          <p class="film-poem-full">How much I am changing
+Need I be strict with you
+Or is it someone else
+I speak with
+
+I hope you'll find solace
+Without me and quick
+That you'll be looked by
+The same Lord
+I speak with
+
+He'll breathe life
+Into your wings
+Because it is oh so simple
+I need you and you're the one
+I love speak with</p>
+        </details>
+      </div>
     </div>
   </div>
 </section>
