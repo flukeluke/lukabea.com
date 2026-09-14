@@ -48,7 +48,7 @@
     cursor:pointer;
     opacity:0;
     pointer-events:none;
-    transition:opacity .3s ease;
+    transition:opacity 1.5s ease;
     mix-blend-mode:difference;
   }
   .socials-tab.visible{opacity:0.85;pointer-events:auto;}
@@ -100,6 +100,9 @@
   .scroll-cue{
     position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
     color:var(--dim);font-size:20px;line-height:1;
+    opacity:0;
+  }
+  .scroll-cue.idle-visible{
     animation:pulseArrow 2.4s ease-in-out infinite;
   }
   @keyframes pulseArrow{
@@ -182,12 +185,11 @@
   .film-poem{max-width:520px;cursor:pointer;}
   .film-poem-text{
     white-space:pre-line;color:var(--dim);font-size:15px;line-height:1.7;
-    max-height:3.4em;overflow:hidden;
+    max-height:6.8em;overflow:hidden;
     -webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent 95%);
     mask-image:linear-gradient(to bottom,#000 40%,transparent 95%);
     transition:max-height .5s ease;
   }
-  .film-poem.expanded{cursor:default;}
   .film-poem.expanded .film-poem-text{
     max-height:600px;
     -webkit-mask-image:none;mask-image:none;
@@ -676,7 +678,7 @@ I love speak with</p>
             socialsRevealTimer = setTimeout(function(){
               socialsTab.classList.add('visible');
               socialsRevealTimer = null;
-            }, 3000);
+            }, 10000);
           } else {
             socialsTab.classList.add('visible');
           }
@@ -692,13 +694,21 @@ I love speak with</p>
     socialsObserver.observe(aboutSection);
   }
 
-  // film poems: click the faded preview to expand; stays expanded while any
-  // part of it is in view, auto-collapses 5s after it fully leaves the viewport
+  // film poems: click the faded preview to expand, click again to collapse;
+  // stays expanded while any part of it is in view, and still auto-collapses
+  // 5s after it fully leaves the viewport
   var poemEls = document.querySelectorAll('.film-poem');
   var poemTimers = new WeakMap();
   poemEls.forEach(function(el){
     el.addEventListener('click', function(){
-      el.classList.add('expanded');
+      var isExpanded = el.classList.toggle('expanded');
+      if(!isExpanded){
+        var t = poemTimers.get(el);
+        if(t){
+          clearTimeout(t);
+          poemTimers.delete(el);
+        }
+      }
     });
   });
   if(poemEls.length){
@@ -721,6 +731,24 @@ I love speak with</p>
       });
     }, { threshold: 0 });
     poemEls.forEach(function(el){ poemObserver.observe(el); });
+  }
+
+  // hero scroll-cue arrow: appears once the person has been idle 3s
+  var scrollCue = document.querySelector('.scroll-cue');
+  if(scrollCue){
+    var scrollCueTimer = null;
+    function scrollCueShow(){
+      scrollCue.classList.add('idle-visible');
+    }
+    function scrollCueReset(){
+      scrollCue.classList.remove('idle-visible');
+      if(scrollCueTimer) clearTimeout(scrollCueTimer);
+      scrollCueTimer = setTimeout(scrollCueShow, 3000);
+    }
+    ['scroll','mousemove','keydown','touchstart','click'].forEach(function(evt){
+      window.addEventListener(evt, scrollCueReset, { passive: true });
+    });
+    scrollCueReset();
   }
 </script>
 
