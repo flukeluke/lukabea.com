@@ -590,19 +590,34 @@ I love speak with</p>
       f.removeAttribute('data-src');
     });
   }
+  // stop any playing embed (Bandcamp/SoundCloud/YouTube/Vimeo) by dropping its
+  // live src back to data-src — openModal() re-hydrates it fresh next time
+  function stopModalMedia(modal){
+    modal.querySelectorAll('iframe[src]').forEach(function(f){
+      f.setAttribute('data-src', f.src);
+      f.removeAttribute('src');
+    });
+  }
   function closeModal(id){
-    document.getElementById(id).classList.remove('open');
+    var modal = document.getElementById(id);
+    modal.classList.remove('open');
     document.body.style.overflow='';
+    stopModalMedia(modal);
   }
   document.querySelectorAll('.modal-overlay').forEach(function(ov){
     ov.addEventListener('click', function(e){
-      if(e.target === ov){ ov.classList.remove('open'); document.body.style.overflow=''; }
+      if(e.target === ov){
+        ov.classList.remove('open');
+        document.body.style.overflow='';
+        stopModalMedia(ov);
+      }
     });
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       document.querySelectorAll('.modal-overlay.open').forEach(function(ov){
         ov.classList.remove('open');
+        stopModalMedia(ov);
       });
       document.body.style.overflow='';
     }
